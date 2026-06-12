@@ -1,0 +1,35 @@
+[aliases]
+bm = ["bookmark", "set", "main", "--revision=@-"]
+clean = ["abandon", "-r", "heads(all()) ~ main ~ remote_bookmarks() ~ @"]
+dangling = ["log", "-r", "heads(all()) ~ main ~ remote_bookmarks() ~ @"]
+diff-main = ["diff", "--from", "trunk()"]
+sync = [
+  "util",
+  "exec",
+  "--",
+  "bash",
+  "-c",
+  'jj git fetch && jj rebase -d "trunk()"'
+]
+
+[experimental-advance-branches]
+enabled-branches = ["main"]
+
+[templates]
+draft_commit_description = '''
+concat(
+  coalesce(description, default_commit_description, "\n"),
+  surround(
+    "\nJJ: This commit contains the following changes:\n", "",
+    indent("JJ:     ", diff.stat(72)),
+  ),
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+
+[ui]
+paginate = "never"
+default-command = "log"
+
+# [user] is appended by the module from the hm.git.* options.
