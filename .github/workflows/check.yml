@@ -1,0 +1,23 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      # Builds a sample HM config and validates the rendered hyprland lua
+      # (Hyprland --verify-config + lua-language-server). hyprland and friends
+      # come from cache.nixos.org, so only the small check derivations build.
+      - run: nix flake check -L
