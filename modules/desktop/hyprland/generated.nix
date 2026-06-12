@@ -49,6 +49,11 @@ let
     has_nvidia = config.hm.hasNvidia;
     monitors = map parseMonitor config.hm.monitors;
     quick_apps = config.hm.quickAppBindings;
+    headless_outputs = config.hm.hyprland.headlessOutputs;
+    emergency_restore = {
+      enable = config.hm.hyprland.emergencyRestore.enable;
+      key = config.hm.hyprland.emergencyRestore.key;
+    };
     theme = {
       active_border = hexToRgba config.colorScheme.palette.base0D "aa";
       inactive_border = hexToRgba config.colorScheme.palette.base09 "aa";

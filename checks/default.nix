@@ -27,6 +27,9 @@ let
 
         hm.theming.enable = true;
         hm.hyprland.enable = true;
+        # Exercise the optional lua paths so the checks cover them.
+        hm.hyprland.headlessOutputs = [ "HEADLESS-1,1920x1080@60,9999x0,1" ];
+        hm.hyprland.emergencyRestore.enable = true;
       }
     ];
   };

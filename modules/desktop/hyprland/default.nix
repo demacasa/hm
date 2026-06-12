@@ -19,7 +19,30 @@ in
     ./hyprlock.nix
   ];
 
-  options.hm.hyprland.enable = lib.mkEnableOption "Hyprland desktop (compositor, idle, lock)";
+  options.hm.hyprland = {
+    enable = lib.mkEnableOption "Hyprland desktop (compositor, idle, lock)";
+
+    headlessOutputs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "HEADLESS-1,1920x1080@60,9999x0,1" ];
+      description = ''
+        Monitor specs for headless outputs to create on hyprland.start (e.g. a
+        deterministic output for remote streaming). Each entry is created via
+        `hyprctl output create headless` then configured with `keyword monitor`.
+        Names are assigned in order (HEADLESS-1, HEADLESS-2, …).
+      '';
+    };
+
+    emergencyRestore = {
+      enable = lib.mkEnableOption "emergency keybind that restores hm.monitors + resumes hypridle";
+      key = lib.mkOption {
+        type = lib.types.str;
+        default = "SUPER + SHIFT + F12";
+        description = "Keybind for the emergency monitor-restore action.";
+      };
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {

@@ -75,3 +75,25 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { description
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { description = "Media: play/pause", locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { description = "Media: play/pause", locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { description = "Media: previous",   locked = true })
+
+-- Emergency monitor restore (per-host, from generated.emergency_restore).
+-- Re-applies every configured monitor, resumes hypridle, and herds workspaces
+-- back to the primary output. Useful to recover if a remote-streaming session
+-- leaves the physical display dpms-off / reconfigured.
+if gen.emergency_restore.enable then
+  hl.bind(gen.emergency_restore.key, function()
+    for _, m in ipairs(gen.monitors) do
+      hl.exec_cmd("hyprctl dispatch dpms on " .. m.output)
+      hl.exec_cmd("hyprctl keyword monitor " .. m.output .. "," .. m.mode .. "," .. m.position .. "," .. m.scale)
+    end
+    hl.exec_cmd("pkill -CONT -x hypridle || true")
+    local primary = gen.monitors[1]
+    if primary then
+      for ws = 1, 10 do
+        hl.exec_cmd("hyprctl dispatch moveworkspacetomonitor " .. ws .. " " .. primary.output)
+      end
+      hl.exec_cmd("hyprctl dispatch focusmonitor " .. primary.output)
+      hl.exec_cmd("hyprctl dispatch workspace 1")
+    end
+  end, { description = "Emergency: restore monitors" })
+end

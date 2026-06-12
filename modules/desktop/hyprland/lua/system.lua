@@ -50,6 +50,20 @@ for _, m in ipairs(gen.monitors) do
 end
 
 -- ---------------------------------------------------------------------------
+-- Headless outputs (per-host, from generated.headless_outputs)
+--   Created on start, e.g. a deterministic output a remote streamer captures.
+-- ---------------------------------------------------------------------------
+
+if #gen.headless_outputs > 0 then
+  hl.on("hyprland.start", function()
+    for _, spec in ipairs(gen.headless_outputs) do
+      hl.exec_cmd("hyprctl output create headless")
+      hl.exec_cmd("hyprctl keyword monitor " .. spec)
+    end
+  end)
+end
+
+-- ---------------------------------------------------------------------------
 -- Input devices
 --   TODO: make host-specific via generated.devices if useful.
 -- ---------------------------------------------------------------------------
