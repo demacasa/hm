@@ -1,7 +1,4 @@
 { lib, ... }:
-# Composition-agnostic data inputs for the feature modules. A nixconfig-style
-# consumer wires these from its own `hostSpec`; a standalone home-manager
-# consumer sets them directly (or relies on the defaults below).
 {
   options.hm = {
     theme = lib.mkOption {
@@ -84,11 +81,8 @@
           passwordManager = "bitwarden";
         in
         [
-          { keys = "SUPER + G"; description = "Launch Gemini (web app)"; command = "${webapp}=https://gemini.google.com"; }
-          { keys = "SUPER + Y"; description = "Launch YouTube (web app)"; command = "${webapp}=https://youtube.com/"; }
           { keys = "SUPER + C"; description = "Launch WhatsApp (web app)"; command = "${webapp}=https://web.whatsapp.com/"; }
           { keys = "SUPER + return"; description = "Launch terminal"; command = "${terminal}"; }
-          { keys = "SUPER + N"; description = "Edit notes"; command = "${terminal} --class notes -e vim ~/Notes"; }
           { keys = "SUPER + F"; description = "Launch file manager"; command = "${terminal} --class ${fileManager} -e ${fileManager}"; }
           { keys = "SUPER + B"; description = "Launch browser"; command = browser; }
           { keys = "SUPER + M"; description = "Launch music player"; command = "${terminal} --class ${music} -e ${music}"; }
