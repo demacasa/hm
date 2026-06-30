@@ -1,6 +1,6 @@
 # hm
 
-Reusable, composition-agnostic [Home Manager](https://github.com/nix-community/home-manager)
+Reusable [Home Manager](https://github.com/nix-community/home-manager)
 feature modules for demacasa@ machines.
 
 ## Usage
@@ -33,14 +33,7 @@ features via `hm.<feature>.enable`:
 
 Every feature is flat and self-gating: `options.hm.<f>.enable` +
 `config = mkIf cfg.enable { … }`. No module imports another. Importing the
-default module exposes the full `hm.*` surface with everything off, so headless
-consumers pay nothing.
-
-## Inputs
-
-This flake owns its theming inputs (`catppuccin`, `nix-colors`,
-`catppuccin-starship`) and threads them to the feature modules as the `hmInputs`
-module arg. Consumers that already have these can dedupe with `follows`.
+default module exposes the full `hm.*` surface with everything off.
 
 ## Layout
 
@@ -50,7 +43,3 @@ modules/
   programs/       # nvim, zsh, git, jujutsu, tmux, yazi, starship, fzf, …
   desktop/        # hyprland, waybar, wofi, mako, kew, wallpaper, theming
 ```
-
-Config sources (nvim lua, hyprland lua, …) are served from the Nix store;
-editing means a rebuild. Wallpaper image assets are not shipped by this flake —
-the consumer supplies them via `hm.wallpaper.source`.
