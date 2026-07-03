@@ -17,10 +17,10 @@ end
 
 for _, e in ipairs({
   -- Cursor
-  { "XCURSOR_SIZE",      "24" },
-  { "HYPRCURSOR_SIZE",   "24" },
-  { "XCURSOR_THEME",     "Bibata-Modern-Classic" },
-  { "HYPRCURSOR_THEME",  "Bibata-Modern-Classic" },
+  { "XCURSOR_SIZE",                 "24" },
+  { "HYPRCURSOR_SIZE",              "24" },
+  { "XCURSOR_THEME",                "Bibata-Modern-Classic" },
+  { "HYPRCURSOR_THEME",             "Bibata-Modern-Classic" },
 
   -- Force apps to Wayland
   { "GDK_BACKEND",                  "wayland" },
@@ -31,17 +31,17 @@ for _, e in ipairs({
   { "ELECTRON_OZONE_PLATFORM_HINT", "wayland" },
   { "OZONE_PLATFORM",               "wayland" },
 
-  -- GTK3 dark theme: belt-and-suspenders alongside dconf color-scheme=prefer-dark
-  { "GTK_THEME", "Adwaita-dark" },
+  -- Theming
+  { "GTK_THEME",                    "Adwaita-dark" },
 
   -- Chromium: XCompose + all-Wayland
-  { "CHROMIUM_FLAGS", "\"--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4\"" },
+  { "CHROMIUM_FLAGS",               "\"--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4\"" },
 
   -- wofi: include nix-profile share dirs
-  { "XDG_DATA_DIRS", "$XDG_DATA_DIRS:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share" },
+  { "XDG_DATA_DIRS",                "$XDG_DATA_DIRS:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share" },
 
-  { "XCOMPOSEFILE", "~/.XCompose" },
-  { "EDITOR",       "nvim" },
+  { "XCOMPOSEFILE",                 "~/.XCompose" },
+  { "EDITOR",                       "nvim" },
 }) do hl.env(e[1], e[2]) end
 
 -- ---------------------------------------------------------------------------
