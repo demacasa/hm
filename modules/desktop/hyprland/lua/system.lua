@@ -31,6 +31,9 @@ for _, e in ipairs({
   { "ELECTRON_OZONE_PLATFORM_HINT", "wayland" },
   { "OZONE_PLATFORM",               "wayland" },
 
+  -- GTK3 dark theme: belt-and-suspenders alongside dconf color-scheme=prefer-dark
+  { "GTK_THEME", "Adwaita-dark" },
+
   -- Chromium: XCompose + all-Wayland
   { "CHROMIUM_FLAGS", "\"--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4\"" },
 
