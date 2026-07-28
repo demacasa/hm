@@ -23,6 +23,7 @@ local parsers = {
   'markdown_inline',
   'nix',
   'python',
+  'rust',
   'yaml',
   -- keep-sorted end
 }
