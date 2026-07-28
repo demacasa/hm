@@ -35,6 +35,7 @@ in
       nixpkgs-fmt
       prettierd
       pyright
+      rust-analyzer
       tree-sitter
       typos-lsp
       # keep-sorted end
