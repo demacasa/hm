@@ -26,6 +26,7 @@ in
     home.packages = with pkgs; [
       # LSPs
       # keep-sorted start
+      (callPackage ./pico8-ls.nix { })
       bash-language-server
       cargo # Used by nil LSP.
       go
