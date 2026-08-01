@@ -16,6 +16,7 @@ local servers = {
   "gopls",
   "lua_ls",
   "nil_ls",
+  "pico8_ls",
   "rust_analyzer",
   "typos_lsp",
   -- keep-sorted end
