@@ -16,9 +16,14 @@ syntax highlighting, and a keybinding to run the current cart in PICO-8.
   dedicated community server [pico8-ls](https://github.com/japhib/pico8-ls).
   nvim-lspconfig (already installed) ships a `pico8_ls` config with the
   right cmd, filetype, and root detection — no overrides needed.
-- **pico8-ls is packaged in Nix.** nixpkgs only carries it as a VSCode
-  extension, so this module builds the server itself with
-  `buildNpmPackage` from upstream source, pinned to the latest release.
+- **pico8-ls comes from the nixpkgs VSCode extension.** pico8-ls is not
+  published to npm and its repo needs nested, network-dependent installs,
+  so building it from source in Nix is disproportionately messy. Instead,
+  `vscode-extensions.pollywoggames.pico8-ls` (already in nixpkgs, tracks
+  upstream releases) ships the esbuild-bundled, dependency-free server at
+  `server/out-min/main.js`; a `writeShellScriptBin` wrapper runs it with
+  Node as `pico8-ls`. Verified: the bundled server answers LSP
+  `initialize` under plain `node`.
 - **`.p8` carts only.** pico8-ls attaches to filetype `p8` exclusively;
   the `#include`-separate-`.lua`-files workflow is out of scope and can be
   layered on later. `lua_ls` and the rest of the setup are untouched.
@@ -32,9 +37,11 @@ syntax highlighting, and a keybinding to run the current cart in PICO-8.
 
 ## Changes
 
-1. `modules/programs/nvim/pico8-ls.nix` — new file: `buildNpmPackage`
-   derivation for pico8-ls from japhib/pico8-ls, pinned to the latest
-   release with an `npmDepsHash`. Exposes the `pico8-ls` binary.
+1. `modules/programs/nvim/pico8-ls.nix` — new file: a
+   `writeShellScriptBin "pico8-ls"` wrapper that execs
+   `${nodejs}/bin/node` on the bundled server inside
+   `vscode-extensions.pollywoggames.pico8-ls`. Exposes the `pico8-ls`
+   binary.
 2. `modules/programs/nvim/nvim.nix` — add
    `(pkgs.callPackage ./pico8-ls.nix { })` to `home.packages`.
 3. `modules/programs/nvim/lua/lsp/pico8_ls.lua` — new file:
