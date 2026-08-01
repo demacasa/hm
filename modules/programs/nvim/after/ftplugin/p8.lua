@@ -1,6 +1,7 @@
 -- PICO-8 cart. The treesitter lua parser marks the PICO-8 shorthand
 -- (+=, ?, single-line if) as errors, so use the regex lua syntax.
-vim.bo.syntax = 'lua'
+-- Syntax is set by after/syntax/p8.vim (ftplugin assignment is clobbered
+-- by neovim's syntaxset autocmd before the syntax file re-asserts lua).
 
 -- Sections other than __lua__ are machine-generated hex blobs; keep
 -- long lines from wrapping into walls of text.
