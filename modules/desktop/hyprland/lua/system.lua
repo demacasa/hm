@@ -37,9 +37,6 @@ for _, e in ipairs({
   -- Chromium: XCompose + all-Wayland
   { "CHROMIUM_FLAGS",               "\"--enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4\"" },
 
-  -- wofi: include nix-profile share dirs
-  { "XDG_DATA_DIRS",                "$XDG_DATA_DIRS:$HOME/.nix-profile/share:/nix/var/nix/profiles/default/share" },
-
   { "XCOMPOSEFILE",                 "~/.XCompose" },
   { "EDITOR",                       "nvim" },
 }) do hl.env(e[1], e[2]) end
