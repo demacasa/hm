@@ -88,7 +88,7 @@ in
         # Eza Aliases
         unalias l ls ll la lla lal tree 2>/dev/null
         function l() { command eza "$@"; }
-        function ls() { command eza --icons "$@"; }
+        function ls() { command eza --icons=auto "$@"; }
         function ll() { command eza -lg "$@"; }
         function la() { command eza -a "$@"; }
         function lla() { command eza -lga "$@"; }
